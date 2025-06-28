@@ -1,4 +1,5 @@
 import { Tabs } from 'expo-router';
+import { View, Text } from 'react-native';
 import { useAuth } from '@/contexts/AuthContext';
 import { Redirect } from 'expo-router';
 
@@ -25,7 +26,11 @@ export default function TabLayout() {
           borderTopColor: '#E5E5E5',
           paddingBottom: 8,
           paddingTop: 8,
-          height: 60,
+          height: 80,
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
         },
         tabBarLabelStyle: {
           fontSize: 12,
@@ -38,7 +43,16 @@ export default function TabLayout() {
         options={{
           title: 'Dashboard',
           tabBarIcon: ({ size, color }) => (
-            <div style={{ width: size, height: size, backgroundColor: color, borderRadius: size / 2 }} />
+            <View style={{ 
+              width: size, 
+              height: size, 
+              backgroundColor: color, 
+              borderRadius: size / 2,
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <Text style={{ color: '#FFFFFF', fontSize: 10, fontWeight: 'bold' }}>D</Text>
+            </View>
           ),
         }}
       />
@@ -47,7 +61,16 @@ export default function TabLayout() {
         options={{
           title: 'Profile',
           tabBarIcon: ({ size, color }) => (
-            <div style={{ width: size, height: size, backgroundColor: color, borderRadius: size / 2 }} />
+            <View style={{ 
+              width: size, 
+              height: size, 
+              backgroundColor: color, 
+              borderRadius: size / 2,
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <Text style={{ color: '#FFFFFF', fontSize: 10, fontWeight: 'bold' }}>P</Text>
+            </View>
           ),
         }}
       />
@@ -56,7 +79,16 @@ export default function TabLayout() {
         options={{
           title: 'Settings',
           tabBarIcon: ({ size, color }) => (
-            <div style={{ width: size, height: size, backgroundColor: color, borderRadius: size / 2 }} />
+            <View style={{ 
+              width: size, 
+              height: size, 
+              backgroundColor: color, 
+              borderRadius: size / 2,
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <Text style={{ color: '#FFFFFF', fontSize: 10, fontWeight: 'bold' }}>S</Text>
+            </View>
           ),
         }}
       />
