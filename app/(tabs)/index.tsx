@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
 import { useAuth } from '@/contexts/AuthContext';
-import { TrendingUp, CircleCheck as CheckCircle, Download, Target, Users, Eye, ChartBar as BarChart3, Calendar } from 'lucide-react-native';
 import BrandULogo from '@/components/BrandULogo';
 import BrandChart from '@/components/BrandChart';
 
@@ -151,17 +150,14 @@ export default function DashboardScreen() {
           <>
             <View style={styles.metricsGrid}>
               <View style={styles.metricItem}>
-                <Users size={24} color="#000000" />
                 <Text style={styles.metricValue}>{kpiData.reach.toLocaleString()}</Text>
                 <Text style={styles.metricLabel}>Reach</Text>
               </View>
               <View style={styles.metricItem}>
-                <Eye size={24} color="#000000" />
                 <Text style={styles.metricValue}>{kpiData.visibility}%</Text>
                 <Text style={styles.metricLabel}>Visibility</Text>
               </View>
               <View style={styles.metricItem}>
-                <TrendingUp size={24} color="#000000" />
                 <Text style={styles.metricValue}>+{kpiData.growth}%</Text>
                 <Text style={styles.metricLabel}>Growth</Text>
               </View>
@@ -228,24 +224,19 @@ export default function DashboardScreen() {
                 onPress={() => toggleActionItem(item.id)}
               >
                 <View style={styles.actionContent}>
-                  <CheckCircle 
-                    size={20} 
-                    color={item.completed ? "#000000" : "#E5E5E5"} 
-                    fill={item.completed ? "#000000" : "transparent"}
-                  />
-                  <View style={styles.actionText}>
-                    <Text style={[
-                      styles.actionTitle,
-                      item.completed && styles.actionTitleCompleted
-                    ]}>
-                      {item.title}
-                    </Text>
-                    <Text style={styles.actionDescription}>{item.description}</Text>
-                  </View>
+                  <Text style={[
+                    styles.actionTitle,
+                    item.completed && styles.actionTitleCompleted
+                  ]}>
+                    {item.title}
+                  </Text>
+                  <Text style={styles.actionDescription}>{item.description}</Text>
                 </View>
                 <View style={[
                   styles.priorityBadge,
-                  styles[`priority${item.priority.charAt(0).toUpperCase() + item.priority.slice(1)}`]
+                  item.priority === 'high' ? styles.priorityHigh :
+                  item.priority === 'medium' ? styles.priorityMedium :
+                  styles.priorityLow
                 ]}>
                   <Text style={styles.priorityText}>{item.priority}</Text>
                 </View>
@@ -263,7 +254,6 @@ export default function DashboardScreen() {
         onPress={downloadReport}
         disabled={isDownloading}
       >
-        <Download size={20} color="#FFFFFF" />
         <Text style={styles.downloadButtonText}>
           {isDownloading ? 'Generating...' : 'Download Brand Report'}
         </Text>

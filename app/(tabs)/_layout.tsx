@@ -1,5 +1,4 @@
 import { Tabs } from 'expo-router';
-import { ChartBar as BarChart3, User, Settings } from 'lucide-react-native';
 import { useAuth } from '@/contexts/AuthContext';
 import { Redirect } from 'expo-router';
 
@@ -39,7 +38,7 @@ export default function TabLayout() {
         options={{
           title: 'Dashboard',
           tabBarIcon: ({ size, color }) => (
-            <BarChart3 size={size} color={color} />
+            <div style={{ width: size, height: size, backgroundColor: color, borderRadius: size / 2 }} />
           ),
         }}
       />
@@ -48,7 +47,7 @@ export default function TabLayout() {
         options={{
           title: 'Profile',
           tabBarIcon: ({ size, color }) => (
-            <User size={size} color={color} />
+            <div style={{ width: size, height: size, backgroundColor: color, borderRadius: size / 2 }} />
           ),
         }}
       />
@@ -57,7 +56,7 @@ export default function TabLayout() {
         options={{
           title: 'Settings',
           tabBarIcon: ({ size, color }) => (
-            <Settings size={size} color={color} />
+            <div style={{ width: size, height: size, backgroundColor: color, borderRadius: size / 2 }} />
           ),
         }}
       />

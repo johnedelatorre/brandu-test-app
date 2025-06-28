@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import { VictoryChart, VictoryLine, VictoryBar, VictoryAxis, VictoryTheme, VictoryArea } from 'victory-native';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -30,21 +29,6 @@ export default function BrandChart({
   goalValue, 
   goalDate 
 }: BrandChartProps) {
-  const chartWidth = screenWidth - 72; // Account for card padding
-  const chartHeight = 200;
-
-  // Transform data for Victory charts
-  const transformedData = data.labels.map((label, index) => ({
-    x: label,
-    y: data.datasets[0]?.data[index] || 0,
-  }));
-
-  // Goal line data if needed
-  const goalData = showGoal && goalValue ? data.labels.map((label) => ({
-    x: label,
-    y: goalValue,
-  })) : [];
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -55,98 +39,10 @@ export default function BrandChart({
       </View>
       
       <View style={styles.chartContainer}>
-        <VictoryChart
-          theme={VictoryTheme.material}
-          width={chartWidth}
-          height={chartHeight}
-          padding={{ left: 60, top: 20, right: 40, bottom: 40 }}
-          domainPadding={{ x: type === 'bar' ? 20 : 0 }}
-        >
-          <VictoryAxis
-            dependentAxis
-            tickFormat={(t) => `${t}`}
-            style={{
-              axis: { stroke: '#E5E5E5' },
-              tickLabels: { 
-                fontSize: 12, 
-                fill: '#666666',
-                fontFamily: 'Inter-Regular'
-              },
-              grid: { stroke: '#E5E5E5', strokeWidth: 1 }
-            }}
-          />
-          <VictoryAxis
-            style={{
-              axis: { stroke: '#E5E5E5' },
-              tickLabels: { 
-                fontSize: 12, 
-                fill: '#666666',
-                fontFamily: 'Inter-Regular'
-              }
-            }}
-          />
-          
-          {type === 'line' ? (
-            <>
-              <VictoryArea
-                data={transformedData}
-                style={{
-                  data: { 
-                    fill: '#000000', 
-                    fillOpacity: 0.1,
-                    stroke: '#000000',
-                    strokeWidth: 2
-                  }
-                }}
-                animate={{
-                  duration: 1000,
-                  onLoad: { duration: 500 }
-                }}
-              />
-              <VictoryLine
-                data={transformedData}
-                style={{
-                  data: { 
-                    stroke: '#000000',
-                    strokeWidth: 2
-                  }
-                }}
-                animate={{
-                  duration: 1000,
-                  onLoad: { duration: 500 }
-                }}
-              />
-            </>
-          ) : (
-            <VictoryBar
-              data={transformedData}
-              style={{
-                data: { 
-                  fill: '#000000',
-                  fillOpacity: 0.8
-                }
-              }}
-              animate={{
-                duration: 1000,
-                onLoad: { duration: 500 }
-              }}
-            />
-          )}
-
-          {/* Goal line */}
-          {showGoal && goalValue && goalData.length > 0 && (
-            <VictoryLine
-              data={goalData}
-              style={{
-                data: { 
-                  stroke: '#666666',
-                  strokeWidth: 2,
-                  strokeDasharray: '5,5'
-                }
-              }}
-            />
-          )}
-        </VictoryChart>
+        <View style={styles.placeholder}>
+          <Text style={styles.placeholderText}>Chart Placeholder</Text>
+          <Text style={styles.placeholderSubtext}>{type} chart for {title}</Text>
+        </View>
       </View>
 
       {showGoal && goalValue && (
@@ -188,6 +84,27 @@ const styles = StyleSheet.create({
   chartContainer: {
     alignItems: 'center',
     paddingHorizontal: 0,
+    height: 200,
+    justifyContent: 'center',
+  },
+  placeholder: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 150,
+    width: '100%',
+    backgroundColor: '#F5F5F5',
+    borderRadius: 8,
+  },
+  placeholderText: {
+    fontSize: 16,
+    fontFamily: 'Inter-Medium',
+    color: '#666666',
+    marginBottom: 8,
+  },
+  placeholderSubtext: {
+    fontSize: 12,
+    fontFamily: 'Inter-Regular',
+    color: '#999999',
   },
   goalIndicator: {
     flexDirection: 'row',
@@ -204,7 +121,7 @@ const styles = StyleSheet.create({
   },
   goalLabel: {
     fontSize: 12,
-    fontFamily: 'Inter-Regular',
+    fontFamily: 'Inter-Medium',
     color: '#666666',
   },
 });
