@@ -1,5 +1,5 @@
 import { Tabs } from 'expo-router';
-import { View, Text } from 'react-native';
+import { House, User, Gear } from 'phosphor-react-native';
 import { useAuth } from '@/contexts/AuthContext';
 import { Redirect } from 'expo-router';
 
@@ -43,16 +43,7 @@ export default function TabLayout() {
         options={{
           title: 'Dashboard',
           tabBarIcon: ({ size, color }) => (
-            <View style={{ 
-              width: size, 
-              height: size, 
-              backgroundColor: color, 
-              borderRadius: size / 2,
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}>
-              <Text style={{ color: '#FFFFFF', fontSize: 10, fontWeight: 'bold' }}>D</Text>
-            </View>
+            <House size={size} color={color} weight="fill" />
           ),
         }}
       />
@@ -61,16 +52,7 @@ export default function TabLayout() {
         options={{
           title: 'Profile',
           tabBarIcon: ({ size, color }) => (
-            <View style={{ 
-              width: size, 
-              height: size, 
-              backgroundColor: color, 
-              borderRadius: size / 2,
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}>
-              <Text style={{ color: '#FFFFFF', fontSize: 10, fontWeight: 'bold' }}>P</Text>
-            </View>
+            <User size={size} color={color} weight="fill" />
           ),
         }}
       />
@@ -79,16 +61,7 @@ export default function TabLayout() {
         options={{
           title: 'Settings',
           tabBarIcon: ({ size, color }) => (
-            <View style={{ 
-              width: size, 
-              height: size, 
-              backgroundColor: color, 
-              borderRadius: size / 2,
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}>
-              <Text style={{ color: '#FFFFFF', fontSize: 10, fontWeight: 'bold' }}>S</Text>
-            </View>
+            <Gear size={size} color={color} weight="fill" />
           ),
         }}
       />

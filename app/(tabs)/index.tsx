@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
 import { useAuth } from '@/contexts/AuthContext';
+import { CheckCircle, CircleNotch, Check } from 'phosphor-react-native';
 import BrandULogo from '@/components/BrandULogo';
 import BrandChart from '@/components/BrandChart';
 
@@ -224,13 +225,22 @@ export default function DashboardScreen() {
                 onPress={() => toggleActionItem(item.id)}
               >
                 <View style={styles.actionContent}>
-                  <Text style={[
-                    styles.actionTitle,
-                    item.completed && styles.actionTitleCompleted
-                  ]}>
-                    {item.title}
-                  </Text>
-                  <Text style={styles.actionDescription}>{item.description}</Text>
+                  <View style={styles.checkboxContainer}>
+                    {item.completed ? (
+                      <CheckCircle size={24} color="#000000" weight="fill" />
+                    ) : (
+                      <CircleNotch size={24} color="#E5E5E5" weight="bold" />
+                    )}
+                  </View>
+                  <View style={styles.actionText}>
+                    <Text style={[
+                      styles.actionTitle,
+                      item.completed && styles.actionTitleCompleted
+                    ]}>
+                      {item.title}
+                    </Text>
+                    <Text style={styles.actionDescription}>{item.description}</Text>
+                  </View>
                 </View>
                 <View style={[
                   styles.priorityBadge,
@@ -382,7 +392,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   actionText: {
-    marginLeft: 12,
     flex: 1,
   },
   actionTitle: {
@@ -445,5 +454,8 @@ const styles = StyleSheet.create({
     color: '#666666',
     textAlign: 'center',
     paddingVertical: 20,
+  },
+  checkboxContainer: {
+    marginRight: 12,
   },
 });
