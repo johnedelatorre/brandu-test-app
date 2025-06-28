@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
 import { useAuth } from '@/contexts/AuthContext';
-import { TrendingUp, CircleCheck as CheckCircle, Download, Target, Users, Eye } from 'lucide-react-native';
+import { TrendingUp, CircleCheck as CheckCircle, Download, Target, Users, Eye, BarChart3, Calendar } from 'lucide-react-native';
 import BrandULogo from '@/components/BrandULogo';
+import BrandChart from '@/components/BrandChart';
 
 interface KPIData {
   reach: number;
@@ -19,10 +20,27 @@ interface ActionItem {
   priority: 'high' | 'medium' | 'low';
 }
 
+interface ChartData {
+  labels: string[];
+  datasets: {
+    data: number[];
+    color?: (opacity: number) => string;
+    strokeWidth?: number;
+  }[];
+}
+
+interface ChartsData {
+  kpiOverTime: ChartData;
+  engagementTrend: ChartData;
+  goalProgress: ChartData;
+  monthlyGrowth: ChartData;
+}
+
 export default function DashboardScreen() {
   const { user, logout } = useAuth();
   const [kpiData, setKpiData] = useState<KPIData | null>(null);
   const [actionItems, setActionItems] = useState<ActionItem[]>([]);
+  const [chartsData, setChartsData] = useState<ChartsData | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
 
@@ -44,6 +62,13 @@ export default function DashboardScreen() {
       if (actionsResponse.ok) {
         const actions = await actionsResponse.json();
         setActionItems(actions);
+      }
+
+      // Load charts data
+      const chartsResponse = await fetch('/api/v1/dashboard/charts');
+      if (chartsResponse.ok) {
+        const charts = await chartsResponse.json();
+        setChartsData(charts);
       }
     } catch (error) {
       console.error('Error loading dashboard data:', error);
@@ -153,6 +178,44 @@ export default function DashboardScreen() {
         )}
       </View>
 
+      {/* Charts Section */}
+      {chartsData && (
+        <>
+          {/* Reach Over Time Chart */}
+          <View style={styles.chartCard}>
+            <BrandChart
+              type="line"
+              title="Reach Over Time"
+              data={chartsData.kpiOverTime}
+              showGoal={true}
+              goalValue={15000}
+              goalDate="Dec 2025"
+            />
+          </View>
+
+          {/* Engagement Trend Chart */}
+          <View style={styles.chartCard}>
+            <BrandChart
+              type="bar"
+              title="Monthly Growth Rate"
+              data={chartsData.monthlyGrowth}
+            />
+          </View>
+
+          {/* Goal Progress Chart */}
+          <View style={styles.chartCard}>
+            <BrandChart
+              type="line"
+              title="Annual Goal Progress"
+              data={chartsData.goalProgress}
+              showGoal={true}
+              goalValue={15000}
+              goalDate="Q4 Target"
+            />
+          </View>
+        </>
+      )}
+
       {/* Action Items Checklist */}
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Action Items</Text>
@@ -260,6 +323,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#E5E5E5',
     borderRadius: 8,
+  },
+  chartCard: {
+    marginHorizontal: 24,
+    marginBottom: 24,
   },
   cardTitle: {
     fontSize: 20,
