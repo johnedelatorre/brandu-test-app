@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
 import { useAuth } from '@/contexts/AuthContext';
-import { TrendingUp, CircleCheck as CheckCircle, Download, Target, Users, Eye, BarChart3, Calendar } from 'lucide-react-native';
+import { TrendingUp, CircleCheck as CheckCircle, Download, Target, Users, Eye, ChartBar as BarChart3, Calendar } from 'lucide-react-native';
 import BrandULogo from '@/components/BrandULogo';
 import BrandChart from '@/components/BrandChart';
 
