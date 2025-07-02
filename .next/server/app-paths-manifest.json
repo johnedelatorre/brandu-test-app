@@ -1,0 +1,7 @@
+{
+  "/page": "app/page.js",
+  "/analytics/page": "app/analytics/page.js",
+  "/insights/page": "app/insights/page.js",
+  "/data/page": "app/data/page.js",
+  "/settings/page": "app/settings/page.js"
+}
